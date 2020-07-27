@@ -81,6 +81,7 @@ class App extends React.Component {
 
   withdraw(amt) {
     let leftover = amt;
+    // Starting up string for output if request is successfull
     let receipt = `Success: Dispensed $${amt}: `;
     let bills = this.state.bills;
     let newInventory = {}
@@ -109,6 +110,7 @@ class App extends React.Component {
       newInventory = this.state.bills
     }
 
+    // Update the existing inventory and output for user
     this.setState({
       bills: newInventory,
       output: receipt
@@ -120,8 +122,8 @@ class App extends React.Component {
 
     let bills = this.state.bills;
     let quantity = 0;
-    console.log(bills)
 
+    // Integers aren't great for object property names, but I made them work
     switch (denom) {
       case 100:
         quantity = bills['100'];
@@ -145,6 +147,7 @@ class App extends React.Component {
         quantity = 'invalid denomination'
     }
 
+    // In case user command is malformed, check to make sure integer was captured. If it wasn't quantity will be a message
     let output = (isNaN(quantity)) ? quantity : quantity + ' $' + denom + ' bills';
 
     this.setState({ output: output })
@@ -155,7 +158,7 @@ class App extends React.Component {
   }
 
   render() {
-
+    // if user quit application, thank you screen will show
     if (!this.state.isActive) {
       return <Thanks />
     } else {
